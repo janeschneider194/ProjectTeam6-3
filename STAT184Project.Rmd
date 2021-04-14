@@ -1,0 +1,12 @@
+---
+title: "STAT184 Project"
+author: "ProjectTeam6-3"
+date: "4/20/2021"
+output: html_notebook
+---
+### Load Packages
+```{r}
+library(tidyverse)
+#if a player is cut in the top10 the variable should say no not NA
+```
+
