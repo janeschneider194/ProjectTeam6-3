@@ -7,9 +7,6 @@ output: html_notebook
 ### Load Packages
 ```{r}
 library(tidyverse)
-install.packages("tidyr")
-library(tidyr)
-#if a player is cut in the top10 the variable should say no not NA
 ```
 ### Read Data
 ```{r}
@@ -21,11 +18,43 @@ PGAFantasy <-
   read_csv("PGA_Fantasy.csv")
 ```
 
-
 ```{r}
-MemorialText <-
+MemorialStats <-
   read.table(file ="Memorial_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1)
 
-#MemorialText <- separate(MemorialText, col = V1, into = c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total"), sep = "\n")
+MemorialStats <- as.data.frame(matrix(MemorialStats$V1[MemorialStats$V1!=""], ncol = 9, byrow = TRUE))
+
+names(MemorialStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
 ```
 
+```{r}
+PGAStats <-
+  read.table(file ="PGA_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1)
+
+PGAStats <- as.data.frame(matrix(PGAStats$V1[PGAStats$V1!=""], ncol = 9, byrow = TRUE))
+
+names(PGAStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
+```
+
+```{r}
+SchwabStats <-
+  read.table(file ="Schwab_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1)
+
+SchwabStats <- as.data.frame(matrix(SchwabStats$V1[SchwabStats$V1!=""], ncol = 9, byrow = TRUE))
+
+names(SchwabStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
+```
+#### Join stats and fantasy tables and rbind all tournaments together
+```{r}
+Memorial <-
+  MemorialStats %>%
+  left_join(MemorialFantasy, by =  c(Player = "Name"))
+PGA <-
+  PGAStats %>%
+  left_join(PGAFantasy, by = c(Player = "Name"))
+Schwab <-
+  SchwabStats %>%
+  left_join(SchwabFantasy, by = c(Player = "Name"))
+
+Tournaments <- rbind(Memorial, PGA, Schwab)
+```
