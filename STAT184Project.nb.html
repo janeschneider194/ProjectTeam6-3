@@ -244,16 +244,9 @@ summary {
 <h3>Load Packages</h3>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5pbnN0YWxsLnBhY2thZ2VzKFwidGlkeXJcIilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KHRpZHlyKVxuYGBgIn0= -->
 <pre class="r"><code>library(tidyverse)
-install.packages(&quot;tidyr&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gaW5zdGFsbC5wYWNrYWdlcyA6IFVwZGF0aW5nIGxvYWRlZCBwYWNrYWdlc1xuIn0= -->
-<pre><code>Error in install.packages : Updating loaded packages</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5cilcbiNpZiBhIHBsYXllciBpcyBjdXQgaW4gdGhlIHRvcDEwIHRoZSB2YXJpYWJsZSBzaG91bGQgc2F5IG5vIG5vdCBOQVxuYGBgIn0= -->
-<pre class="r"><code>library(tidyr)
-#if a player is cut in the top10 the variable should say no not NA</code></pre>
+library(tidyr)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -274,18 +267,145 @@ PGAFantasy &lt;-
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTWVtb3JpYWxUZXh0IDwtXG4gIHJlYWQudGFibGUoZmlsZSA9XCJNZW1vcmlhbF9TdGF0cy50eHRcIiwgaGVhZGVyID0gRkFMU0Usc2VwID0gXCJcXG5cIixkZWMgPSBcIi5cIiwgc2tpcCA9IDEpXG5cbiNNZW1vcmlhbFRleHQgPC0gc2VwYXJhdGUoTWVtb3JpYWxUZXh0LCBjb2wgPSBWMSwgaW50byA9IGMoXCJQb3NpdGlvblwiLFwiUGxheWVyXCIsIFwiU2NvcmVcIixcIlB1dHRcIixcIkFSR1wiLCBcIkFwcFwiLCBcIk9UVFwiLCBcIlQyR1wiLCBcIlRvdGFsXCIpLCBzZXAgPSBcIlxcblwiKVxuYGBgIn0= -->
-<pre class="r"><code>MemorialText &lt;-
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTWVtb3JpYWxTdGF0cyA8LVxuICByZWFkLnRhYmxlKGZpbGUgPVwiTWVtb3JpYWxfU3RhdHMudHh0XCIsIGhlYWRlciA9IEZBTFNFLHNlcCA9IFwiXFxuXCIsZGVjID0gXCIuXCIsIHNraXAgPSAxKVxuXG5NZW1vcmlhbFN0YXRzIDwtIGFzLmRhdGEuZnJhbWUobWF0cml4KE1lbW9yaWFsU3RhdHMkVjFbTWVtb3JpYWxTdGF0cyRWMSE9XCJcIl0sIG5jb2wgPSA5LCBieXJvdyA9IFRSVUUpKVxuXG5uYW1lcyhNZW1vcmlhbFN0YXRzKSA8LSBjKFwiUG9zaXRpb25cIixcIlBsYXllclwiLCBcIlNjb3JlXCIsXCJQdXR0XCIsXCJBUkdcIiwgXCJBcHBcIiwgXCJPVFRcIiwgXCJUMkdcIiwgXCJUb3RhbFwiKVxuYGBgIn0= -->
+<pre class="r"><code>MemorialStats &lt;-
   read.table(file =&quot;Memorial_Stats.txt&quot;, header = FALSE,sep = &quot;\n&quot;,dec = &quot;.&quot;, skip = 1)
 
-#MemorialText &lt;- separate(MemorialText, col = V1, into = c(&quot;Position&quot;,&quot;Player&quot;, &quot;Score&quot;,&quot;Putt&quot;,&quot;ARG&quot;, &quot;App&quot;, &quot;OTT&quot;, &quot;T2G&quot;, &quot;Total&quot;), sep = &quot;\n&quot;)</code></pre>
+MemorialStats &lt;- as.data.frame(matrix(MemorialStats$V1[MemorialStats$V1!=&quot;&quot;], ncol = 9, byrow = TRUE))
+
+names(MemorialStats) &lt;- c(&quot;Position&quot;,&quot;Player&quot;, &quot;Score&quot;,&quot;Putt&quot;,&quot;ARG&quot;, &quot;App&quot;, &quot;OTT&quot;, &quot;T2G&quot;, &quot;Total&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUEdBU3RhdHMgPC1cbiAgcmVhZC50YWJsZShmaWxlID1cIlBHQV9TdGF0cy50eHRcIiwgaGVhZGVyID0gRkFMU0Usc2VwID0gXCJcXG5cIixkZWMgPSBcIi5cIiwgc2tpcCA9IDEpXG5gYGAifQ== -->
+<pre class="r"><code>PGAStats &lt;-
+  read.table(file =&quot;PGA_Stats.txt&quot;, header = FALSE,sep = &quot;\n&quot;,dec = &quot;.&quot;, skip = 1)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRU9GIHdpdGhpbiBxdW90ZWQgc3RyaW5nXG4ifQ== -->
+<pre><code>EOF within quoted string</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUEdBU3RhdHMgPC0gYXMuZGF0YS5mcmFtZShtYXRyaXgoUEdBU3RhdHMkVjFbUEdBU3RhdHMkVjEhPVwiXCJdLCBuY29sID0gOSwgYnlyb3cgPSBUUlVFKSlcbmBgYCJ9 -->
+<pre class="r"><code>PGAStats &lt;- as.data.frame(matrix(PGAStats$V1[PGAStats$V1!=&quot;&quot;], ncol = 9, byrow = TRUE))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiZGF0YSBsZW5ndGggWzEyMDhdIGlzIG5vdCBhIHN1Yi1tdWx0aXBsZSBvciBtdWx0aXBsZSBvZiB0aGUgbnVtYmVyIG9mIHJvd3MgWzEzNV1cbiJ9 -->
+<pre><code>data length [1208] is not a sub-multiple or multiple of the number of rows [135]</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMoUEdBU3RhdHMpIDwtIGMoXCJQb3NpdGlvblwiLFwiUGxheWVyXCIsIFwiU2NvcmVcIixcIlB1dHRcIixcIkFSR1wiLCBcIkFwcFwiLCBcIk9UVFwiLCBcIlQyR1wiLCBcIlRvdGFsXCIpXG5gYGAifQ== -->
+<pre class="r"><code>names(PGAStats) &lt;- c(&quot;Position&quot;,&quot;Player&quot;, &quot;Score&quot;,&quot;Putt&quot;,&quot;ARG&quot;, &quot;App&quot;, &quot;OTT&quot;, &quot;T2G&quot;, &quot;Total&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuU2Nod2FiU3RhdHMgPC1cbiAgcmVhZC50YWJsZShmaWxlID1cIlNjaHdhYl9TdGF0cy50eHRcIiwgaGVhZGVyID0gRkFMU0Usc2VwID0gXCJcXG5cIixkZWMgPSBcIi5cIiwgc2tpcCA9IDEpXG5cblNjaHdhYlN0YXRzIDwtIGFzLmRhdGEuZnJhbWUobWF0cml4KFNjaHdhYlN0YXRzJFYxW1NjaHdhYlN0YXRzJFYxIT1cIlwiXSwgbmNvbCA9IDksIGJ5cm93ID0gVFJVRSkpXG5cbm5hbWVzKFNjaHdhYlN0YXRzKSA8LSBjKFwiUG9zaXRpb25cIixcIlBsYXllclwiLCBcIlNjb3JlXCIsXCJQdXR0XCIsXCJBUkdcIiwgXCJBcHBcIiwgXCJPVFRcIiwgXCJUMkdcIiwgXCJUb3RhbFwiKVxuYGBgIn0= -->
+<pre class="r"><code>SchwabStats &lt;-
+  read.table(file =&quot;Schwab_Stats.txt&quot;, header = FALSE,sep = &quot;\n&quot;,dec = &quot;.&quot;, skip = 1)
+
+SchwabStats &lt;- as.data.frame(matrix(SchwabStats$V1[SchwabStats$V1!=&quot;&quot;], ncol = 9, byrow = TRUE))
+
+names(SchwabStats) &lt;- c(&quot;Position&quot;,&quot;Player&quot;, &quot;Score&quot;,&quot;Putt&quot;,&quot;ARG&quot;, &quot;App&quot;, &quot;OTT&quot;, &quot;T2G&quot;, &quot;Total&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="join-stats-and-fantasy-tables-and-rbind-all-tournaments-together" class="section level4">
+<h4>Join stats and fantasy tables and rbind all tournaments together</h4>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTWVtb3JpYWwgPC1cbiAgTWVtb3JpYWxTdGF0cyAlPiVcbiAgbGVmdF9qb2luKE1lbW9yaWFsRmFudGFzeSwgYnkgPSAgYyhQbGF5ZXIgPSBcIk5hbWVcIikpXG5QR0EgPC1cbiAgUEdBU3RhdHMgJT4lXG4gIGxlZnRfam9pbihQR0FGYW50YXN5LCBieSA9IGMoUGxheWVyID0gXCJOYW1lXCIpKVxuU2Nod2FiIDwtXG4gIFNjaHdhYlN0YXRzICU+JVxuICBsZWZ0X2pvaW4oU2Nod2FiRmFudGFzeSwgYnkgPSBjKFBsYXllciA9IFwiTmFtZVwiKSlcblxuVG91cm5hbWVudHMgPC0gcmJpbmQoTWVtb3JpYWwsIFBHQSwgU2Nod2FiKVxuYGBgIn0= -->
+<pre class="r"><code>Memorial &lt;-
+  MemorialStats %&gt;%
+  left_join(MemorialFantasy, by =  c(Player = &quot;Name&quot;))
+PGA &lt;-
+  PGAStats %&gt;%
+  left_join(PGAFantasy, by = c(Player = &quot;Name&quot;))
+Schwab &lt;-
+  SchwabStats %&gt;%
+  left_join(SchwabFantasy, by = c(Player = &quot;Name&quot;))
+
+Tournaments &lt;- rbind(Memorial, PGA, Schwab)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3RvdXJucGxheWVkIGNvbHVtblxuVG91cm5QbGF5ZWQgPC1cbiAgVG91cm5hbWVudHMgJT4lXG4gIGdyb3VwX2J5KFBsYXllcikgJT4lXG4gIHN1bW1hcmlzZShjb3VudCA9IG4oKSkgJT4lXG4gIHJlbmFtZSh0b3VybnBsYXllZCA9IGNvdW50KVxuVG91cm5hbWVudHMgPC1cbiAgVG91cm5hbWVudHMgJT4lXG4gIGxlZnRfam9pbihUb3VyblBsYXllZClcbmBgYCJ9 -->
+<pre class="r"><code>#tournplayed column
+TournPlayed &lt;-
+  Tournaments %&gt;%
+  group_by(Player) %&gt;%
+  summarise(count = n()) %&gt;%
+  rename(tournplayed = count)
+Tournaments &lt;-
+  Tournaments %&gt;%
+  left_join(TournPlayed)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSm9pbmluZywgYnkgPSBcIlBsYXllclwiXG4ifQ== -->
+<pre><code>Joining, by = &quot;Player&quot;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI01hZGVDdXQgY29sdW1uXG5Ub3VybmFtZW50cyA8LVxuICBUb3VybmFtZW50cyAlPiVcbiAgbXV0YXRlKFRvdXJuYW1lbnRzLCBNYWRlQ3V0ID0gKGlmZWxzZShQb3NpdGlvbiA9PSBcIkNVVFwiLCBcIk5vXCIsIFwiWWVzXCIpKSlcbmBgYCJ9 -->
+<pre class="r"><code>#MadeCut column
+Tournaments &lt;-
+  Tournaments %&gt;%
+  mutate(Tournaments, MadeCut = (ifelse(Position == &quot;CUT&quot;, &quot;No&quot;, &quot;Yes&quot;)))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NoYXJsZXNTY2h3YWIgY2F0ZWdvcnlcbkNoYXJsZXNTY2h3YWJTcHJlYWQgPC1cbiAgVG91cm5hbWVudHMgJT4lXG4gIGZpbHRlcihUb3VybmFtZW50ID09IFwiQ2hhcmxlcyBTY2h3YWJcIikgJT4lXG4gIHNwcmVhZChUb3VybmFtZW50LCBTY29yZSkgJT4lXG4gIHNlbGVjdChQbGF5ZXIsICdDaGFybGVzIFNjaHdhYicpXG5NZW1vcmlhbFNwcmVhZCA8LVxuICBUb3VybmFtZW50cyAlPiVcbiAgZmlsdGVyKFRvdXJuYW1lbnQgPT0gXCJNZW1vcmlhbFwiKSAlPiVcbiAgc3ByZWFkKFRvdXJuYW1lbnQsIFNjb3JlKSAlPiVcbiAgc2VsZWN0KFBsYXllciwgTWVtb3JpYWwpXG5QR0FTcHJlYWQgPC1cbiAgVG91cm5hbWVudHMgJT4lXG4gIGZpbHRlcihUb3VybmFtZW50ID09IFwiUEdBIENoYW1waW9uc2hpcFwiKSAlPiVcbiAgc3ByZWFkKFRvdXJuYW1lbnQsIFNjb3JlKSAlPiVcbiAgc2VsZWN0KFBsYXllciwgJ1BHQSBDaGFtcGlvbnNoaXAnKVxuXG5Ub3VybmFtZW50cyA8LVxuICBUb3VybmFtZW50cyAlPiVcbiAgbGVmdF9qb2luKENoYXJsZXNTY2h3YWJTcHJlYWQsIGJ5ID0gYyhQbGF5ZXIgPSBcIlBsYXllclwiKSlcblRvdXJuYW1lbnRzIDwtXG4gIFRvdXJuYW1lbnRzICU+JVxuICBsZWZ0X2pvaW4oTWVtb3JpYWxTcHJlYWQsIGJ5ID0gYyhQbGF5ZXIgPSBcIlBsYXllclwiKSlcblRvdXJuYW1lbnRzIDwtXG4gIFRvdXJuYW1lbnRzICU+JVxuICBsZWZ0X2pvaW4oUEdBU3ByZWFkLCBieSA9IGMoUGxheWVyID0gXCJQbGF5ZXJcIikpIFxuYGBgIn0= -->
+<pre class="r"><code>#CharlesSchwab category
+CharlesSchwabSpread &lt;-
+  Tournaments %&gt;%
+  filter(Tournament == &quot;Charles Schwab&quot;) %&gt;%
+  spread(Tournament, Score) %&gt;%
+  select(Player, &#39;Charles Schwab&#39;)
+MemorialSpread &lt;-
+  Tournaments %&gt;%
+  filter(Tournament == &quot;Memorial&quot;) %&gt;%
+  spread(Tournament, Score) %&gt;%
+  select(Player, Memorial)
+PGASpread &lt;-
+  Tournaments %&gt;%
+  filter(Tournament == &quot;PGA Championship&quot;) %&gt;%
+  spread(Tournament, Score) %&gt;%
+  select(Player, &#39;PGA Championship&#39;)
+
+Tournaments &lt;-
+  Tournaments %&gt;%
+  left_join(CharlesSchwabSpread, by = c(Player = &quot;Player&quot;))
+Tournaments &lt;-
+  Tournaments %&gt;%
+  left_join(MemorialSpread, by = c(Player = &quot;Player&quot;))
+Tournaments &lt;-
+  Tournaments %&gt;%
+  left_join(PGASpread, by = c(Player = &quot;Player&quot;)) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Mtc3BhY2UsIGQtZGlnaXRcbnBhdHRlcm4gPC0gXCJcXFxcLSpcXFxcZCtcXFxcLipcXFxcZCpcIlxuVG91cm5hbWVudHMgPC1cbiAgVG91cm5hbWVudHMgJT4lXG4gICNtdXRhdGUoKVxuICB0aWR5cjo6ZXh0cmFjdChQb3NpdGlvbiwgaW50byA9IFwicmFua1wiLCByZWdleCA9IHBhdHRlcm4pXG5gYGAifQ== -->
+<pre class="r"><code>#s-space, d-digit
+pattern &lt;- &quot;\\-*\\d+\\.*\\d*&quot;
+Tournaments &lt;-
+  Tournaments %&gt;%
+  #mutate()
+  tidyr::extract(Position, into = &quot;rank&quot;, regex = pattern)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IGByZWdleGAgc2hvdWxkIGRlZmluZSAxIGdyb3VwczsgIGZvdW5kLlxuIn0= -->
+<pre><code>Error: `regex` should define 1 groups;  found.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+</div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVDE4NCBQcm9qZWN0IgphdXRob3I6ICJQcm9qZWN0VGVhbTYtMyIKZGF0ZTogIjQvMjAvMjAyMSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyMgTG9hZCBQYWNrYWdlcwpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmluc3RhbGwucGFja2FnZXMoInRpZHlyIikKbGlicmFyeSh0aWR5cikKI2lmIGEgcGxheWVyIGlzIGN1dCBpbiB0aGUgdG9wMTAgdGhlIHZhcmlhYmxlIHNob3VsZCBzYXkgbm8gbm90IE5BCmBgYAojIyMgUmVhZCBEYXRhCmBgYHtyfQpNZW1vcmlhbEZhbnRhc3kgPC0KICByZWFkX2NzdigiTWVtb3JpYWxfRmFudGFzeS5jc3YiKQpTY2h3YWJGYW50YXN5IDwtCiAgcmVhZF9jc3YoIlNjaHdhYl9GYW50YXN5LmNzdiIpClBHQUZhbnRhc3kgPC0KICByZWFkX2NzdigiUEdBX0ZhbnRhc3kuY3N2IikKYGBgCgoKYGBge3J9Ck1lbW9yaWFsVGV4dCA8LQogIHJlYWQudGFibGUoZmlsZSA9Ik1lbW9yaWFsX1N0YXRzLnR4dCIsIGhlYWRlciA9IEZBTFNFLHNlcCA9ICJcbiIsZGVjID0gIi4iLCBza2lwID0gMSkKCiNNZW1vcmlhbFRleHQgPC0gc2VwYXJhdGUoTWVtb3JpYWxUZXh0LCBjb2wgPSBWMSwgaW50byA9IGMoIlBvc2l0aW9uIiwiUGxheWVyIiwgIlNjb3JlIiwiUHV0dCIsIkFSRyIsICJBcHAiLCAiT1RUIiwgIlQyRyIsICJUb3RhbCIpLCBzZXAgPSAiXG4iKQpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU1RBVDE4NCBQcm9qZWN0IgphdXRob3I6ICJQcm9qZWN0VGVhbTYtMyIKZGF0ZTogIjQvMjAvMjAyMSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyMgTG9hZCBQYWNrYWdlcwpgYGB7cn0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkodGlkeXIpCmBgYAojIyMgUmVhZCBEYXRhCmBgYHtyfQpNZW1vcmlhbEZhbnRhc3kgPC0KICByZWFkX2NzdigiTWVtb3JpYWxfRmFudGFzeS5jc3YiKQpTY2h3YWJGYW50YXN5IDwtCiAgcmVhZF9jc3YoIlNjaHdhYl9GYW50YXN5LmNzdiIpClBHQUZhbnRhc3kgPC0KICByZWFkX2NzdigiUEdBX0ZhbnRhc3kuY3N2IikKYGBgCgpgYGB7cn0KTWVtb3JpYWxTdGF0cyA8LQogIHJlYWQudGFibGUoZmlsZSA9Ik1lbW9yaWFsX1N0YXRzLnR4dCIsIGhlYWRlciA9IEZBTFNFLHNlcCA9ICJcbiIsZGVjID0gIi4iLCBza2lwID0gMSkKCk1lbW9yaWFsU3RhdHMgPC0gYXMuZGF0YS5mcmFtZShtYXRyaXgoTWVtb3JpYWxTdGF0cyRWMVtNZW1vcmlhbFN0YXRzJFYxIT0iIl0sIG5jb2wgPSA5LCBieXJvdyA9IFRSVUUpKQoKbmFtZXMoTWVtb3JpYWxTdGF0cykgPC0gYygiUG9zaXRpb24iLCJQbGF5ZXIiLCAiU2NvcmUiLCJQdXR0IiwiQVJHIiwgIkFwcCIsICJPVFQiLCAiVDJHIiwgIlRvdGFsIikKYGBgCgpgYGB7cn0KUEdBU3RhdHMgPC0KICByZWFkLnRhYmxlKGZpbGUgPSJQR0FfU3RhdHMudHh0IiwgaGVhZGVyID0gRkFMU0Usc2VwID0gIlxuIixkZWMgPSAiLiIsIHNraXAgPSAxKQoKUEdBU3RhdHMgPC0gYXMuZGF0YS5mcmFtZShtYXRyaXgoUEdBU3RhdHMkVjFbUEdBU3RhdHMkVjEhPSIiXSwgbmNvbCA9IDksIGJ5cm93ID0gVFJVRSkpCgpuYW1lcyhQR0FTdGF0cykgPC0gYygiUG9zaXRpb24iLCJQbGF5ZXIiLCAiU2NvcmUiLCJQdXR0IiwiQVJHIiwgIkFwcCIsICJPVFQiLCAiVDJHIiwgIlRvdGFsIikKYGBgCgpgYGB7cn0KU2Nod2FiU3RhdHMgPC0KICByZWFkLnRhYmxlKGZpbGUgPSJTY2h3YWJfU3RhdHMudHh0IiwgaGVhZGVyID0gRkFMU0Usc2VwID0gIlxuIixkZWMgPSAiLiIsIHNraXAgPSAxKQoKU2Nod2FiU3RhdHMgPC0gYXMuZGF0YS5mcmFtZShtYXRyaXgoU2Nod2FiU3RhdHMkVjFbU2Nod2FiU3RhdHMkVjEhPSIiXSwgbmNvbCA9IDksIGJ5cm93ID0gVFJVRSkpCgpuYW1lcyhTY2h3YWJTdGF0cykgPC0gYygiUG9zaXRpb24iLCJQbGF5ZXIiLCAiU2NvcmUiLCJQdXR0IiwiQVJHIiwgIkFwcCIsICJPVFQiLCAiVDJHIiwgIlRvdGFsIikKYGBgCiMjIyMgSm9pbiBzdGF0cyBhbmQgZmFudGFzeSB0YWJsZXMgYW5kIHJiaW5kIGFsbCB0b3VybmFtZW50cyB0b2dldGhlcgpgYGB7cn0KTWVtb3JpYWwgPC0KICBNZW1vcmlhbFN0YXRzICU+JQogIGxlZnRfam9pbihNZW1vcmlhbEZhbnRhc3ksIGJ5ID0gIGMoUGxheWVyID0gIk5hbWUiKSkKUEdBIDwtCiAgUEdBU3RhdHMgJT4lCiAgbGVmdF9qb2luKFBHQUZhbnRhc3ksIGJ5ID0gYyhQbGF5ZXIgPSAiTmFtZSIpKQpTY2h3YWIgPC0KICBTY2h3YWJTdGF0cyAlPiUKICBsZWZ0X2pvaW4oU2Nod2FiRmFudGFzeSwgYnkgPSBjKFBsYXllciA9ICJOYW1lIikpCgpUb3VybmFtZW50cyA8LSByYmluZChNZW1vcmlhbCwgUEdBLCBTY2h3YWIpCmBgYAoKYGBge3J9CiN0b3VybnBsYXllZCBjb2x1bW4KVG91cm5QbGF5ZWQgPC0KICBUb3VybmFtZW50cyAlPiUKICBncm91cF9ieShQbGF5ZXIpICU+JQogIHN1bW1hcmlzZShjb3VudCA9IG4oKSkgJT4lCiAgcmVuYW1lKHRvdXJucGxheWVkID0gY291bnQpClRvdXJuYW1lbnRzIDwtCiAgVG91cm5hbWVudHMgJT4lCiAgbGVmdF9qb2luKFRvdXJuUGxheWVkKQpgYGAKYGBge3J9CiNNYWRlQ3V0IGNvbHVtbgpUb3VybmFtZW50cyA8LQogIFRvdXJuYW1lbnRzICU+JQogIG11dGF0ZShUb3VybmFtZW50cywgTWFkZUN1dCA9IChpZmVsc2UoUG9zaXRpb24gPT0gIkNVVCIsICJObyIsICJZZXMiKSkpCmBgYAoKYGBge3J9CiNnZXR0aW5nIHRvdXJuYW1lbnRzIGludG8gdGhlaXIgb3duIGNvbHVtbnMgZm9yIGVhY2ggcGxheWVyCkNoYXJsZXNTY2h3YWJTcHJlYWQgPC0KICBUb3VybmFtZW50cyAlPiUKICBmaWx0ZXIoVG91cm5hbWVudCA9PSAiQ2hhcmxlcyBTY2h3YWIiKSAlPiUKICBzcHJlYWQoVG91cm5hbWVudCwgU2NvcmUpICU+JQogIHNlbGVjdChQbGF5ZXIsICdDaGFybGVzIFNjaHdhYicpCk1lbW9yaWFsU3ByZWFkIDwtCiAgVG91cm5hbWVudHMgJT4lCiAgZmlsdGVyKFRvdXJuYW1lbnQgPT0gIk1lbW9yaWFsIikgJT4lCiAgc3ByZWFkKFRvdXJuYW1lbnQsIFNjb3JlKSAlPiUKICBzZWxlY3QoUGxheWVyLCBNZW1vcmlhbCkKUEdBU3ByZWFkIDwtCiAgVG91cm5hbWVudHMgJT4lCiAgZmlsdGVyKFRvdXJuYW1lbnQgPT0gIlBHQSBDaGFtcGlvbnNoaXAiKSAlPiUKICBzcHJlYWQoVG91cm5hbWVudCwgU2NvcmUpICU+JQogIHNlbGVjdChQbGF5ZXIsICdQR0EgQ2hhbXBpb25zaGlwJykKClRvdXJuYW1lbnRzIDwtCiAgVG91cm5hbWVudHMgJT4lCiAgbGVmdF9qb2luKENoYXJsZXNTY2h3YWJTcHJlYWQsIGJ5ID0gYyhQbGF5ZXIgPSAiUGxheWVyIikpClRvdXJuYW1lbnRzIDwtCiAgVG91cm5hbWVudHMgJT4lCiAgbGVmdF9qb2luKE1lbW9yaWFsU3ByZWFkLCBieSA9IGMoUGxheWVyID0gIlBsYXllciIpKQpUb3VybmFtZW50cyA8LQogIFRvdXJuYW1lbnRzICU+JQogIGxlZnRfam9pbihQR0FTcHJlYWQsIGJ5ID0gYyhQbGF5ZXIgPSAiUGxheWVyIikpIApgYGAKCgpgYGB7cn0KI3JhbmsgY29sdW1uCiNzLXNwYWNlLCBkLWRpZ2l0CnBhdHRlcm4gPC0gIlxcLSpcXGQrXFwuKlxcZCoiClRvdXJuYW1lbnRzIDwtCiAgVG91cm5hbWVudHMgJT4lCiAgI211dGF0ZSgpCiAgdGlkeXI6OmV4dHJhY3QoUG9zaXRpb24sIGludG8gPSAicmFuayIsIHJlZ2V4ID0gcGF0dGVybikKYGBgCgo=</div>
 
 
 

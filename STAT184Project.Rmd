@@ -7,6 +7,7 @@ output: html_notebook
 ### Load Packages
 ```{r}
 library(tidyverse)
+library(tidyr)
 ```
 ### Read Data
 ```{r}
@@ -58,3 +59,62 @@ Schwab <-
 
 Tournaments <- rbind(Memorial, PGA, Schwab)
 ```
+
+```{r}
+#tournplayed column
+TournPlayed <-
+  Tournaments %>%
+  group_by(Player) %>%
+  summarise(count = n()) %>%
+  rename(tournplayed = count)
+Tournaments <-
+  Tournaments %>%
+  left_join(TournPlayed)
+```
+```{r}
+#MadeCut column
+Tournaments <-
+  Tournaments %>%
+  mutate(Tournaments, MadeCut = (ifelse(Position == "CUT", "No", "Yes")))
+```
+
+```{r}
+#getting tournaments into their own columns for each player
+CharlesSchwabSpread <-
+  Tournaments %>%
+  filter(Tournament == "Charles Schwab") %>%
+  spread(Tournament, Score) %>%
+  select(Player, 'Charles Schwab')
+MemorialSpread <-
+  Tournaments %>%
+  filter(Tournament == "Memorial") %>%
+  spread(Tournament, Score) %>%
+  select(Player, Memorial)
+PGASpread <-
+  Tournaments %>%
+  filter(Tournament == "PGA Championship") %>%
+  spread(Tournament, Score) %>%
+  select(Player, 'PGA Championship')
+
+Tournaments <-
+  Tournaments %>%
+  left_join(CharlesSchwabSpread, by = c(Player = "Player"))
+Tournaments <-
+  Tournaments %>%
+  left_join(MemorialSpread, by = c(Player = "Player"))
+Tournaments <-
+  Tournaments %>%
+  left_join(PGASpread, by = c(Player = "Player")) 
+```
+
+
+```{r}
+#rank column
+#s-space, d-digit
+pattern <- "\\-*\\d+\\.*\\d*"
+Tournaments <-
+  Tournaments %>%
+  #mutate()
+  tidyr::extract(Position, into = "rank", regex = pattern)
+```
+
