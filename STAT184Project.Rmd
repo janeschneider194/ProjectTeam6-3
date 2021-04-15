@@ -7,6 +7,25 @@ output: html_notebook
 ### Load Packages
 ```{r}
 library(tidyverse)
+install.packages("tidyr")
+library(tidyr)
 #if a player is cut in the top10 the variable should say no not NA
+```
+### Read Data
+```{r}
+MemorialFantasy <-
+  read_csv("Memorial_Fantasy.csv")
+SchwabFantasy <-
+  read_csv("Schwab_Fantasy.csv")
+PGAFantasy <-
+  read_csv("PGA_Fantasy.csv")
+```
+
+
+```{r}
+MemorialText <-
+  read.table(file ="Memorial_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1)
+
+#MemorialText <- separate(MemorialText, col = V1, into = c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total"), sep = "\n")
 ```
 
