@@ -132,5 +132,3 @@ Tournaments$SalaryRange <-paste((as.character(signif(Tournaments$Salary, 1))), "
 Tournaments <- 
   Tournaments[c(1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,15,22,14,16,17,18,19)]
 ```
-
-
