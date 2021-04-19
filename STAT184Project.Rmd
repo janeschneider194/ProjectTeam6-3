@@ -60,6 +60,9 @@ Schwab <-
   left_join(SchwabFantasy, by = c(Player = "Name"))
 
 Tournaments <- rbind(Memorial, PGA, Schwab)
+
+Tournaments$Score <-
+  ifelse(Tournaments$Score == "E", 0, Tournaments$Score)
 ```
 
 ```{r}
@@ -109,14 +112,40 @@ Tournaments <-
   left_join(PGASpread, by = c(Player = "Player")) 
 ```
 
+```{r}
+#Average, changing tournament scores to numeric type
+Tournaments[,16] <- as.integer(Tournaments[,16])
+Tournaments[,17] <- as.integer(Tournaments[,17])
+Tournaments[,18] <- as.integer(Tournaments[,18])
+Tournaments$avg <- round(rowMeans(Tournaments[,16:18], na.rm=TRUE), 1)
+
+```
+
 
 ```{r}
 #rank column
-#s-space, d-digit
-pattern <- "\\-*\\d+\\.*\\d*"
+filterpattern <- "(T(\\d+)|(\\d+))"
+rankpattern = "(\\d+)"
 Tournaments <-
   Tournaments %>%
-  #mutate()
-  tidyr::extract(Position, into = "rank", regex = pattern)
+  mutate(rank = ifelse(grepl(filterpattern, Position), (as.numeric(str_extract(Position, rankpattern))), NA))
+
+#top 10 column
+Tournaments <-
+  Tournaments %>%
+  mutate(top10 = ifelse(Tournaments$rank <= 10, "Yes", "No"))
 ```
+
+```{r}
+#Salary Range
+Tournaments$Salary = as.numeric(Tournaments$Salary)
+Tournaments$SalaryRange <-paste((as.character(signif(Tournaments$Salary, 1))), "s",sep = "")
+```
+
+```{r}
+#order columns
+Tournaments <- 
+  Tournaments[c(1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,15,22,14,16,17,18,19)]
+```
+
 
