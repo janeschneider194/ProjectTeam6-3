@@ -40,7 +40,7 @@ SchwabStats <- as.data.frame(matrix(SchwabStats$V1[SchwabStats$V1!=""], ncol = 9
 names(SchwabStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
 
 ```
-#### Join Fantasy and Statistics to Create One Data Frame for Each of Three Tournaments
+### Join Fantasy and Statistics to Create One Data Frame for Each of Three Tournaments
 ```{r}
 Memorial <-
   MemorialStats %>%
@@ -53,7 +53,8 @@ Schwab <-
   left_join(SchwabFantasy, by = c(Player = "Name"))
 
 ```
-#### Combine the Three Tournament Data Frames to Final Data Frame
+### Combine the Three Tournament Data Frames to Final Data Frame
+#### The statements in this chunk are generating the remaining columns that are missing in the combined data frame. The tournaments played is by using the count function on how many tournament a player appears in. The made cut column utilizes mutate with a ifelse function that responds with a simple yes or no. Next we filtered by tournament and used spread to find their scores for each tournament. This was repeated for each of the three tournaments. To find the average score for each player we first had to convert the scores to numbers. Next we ranked the players utilizing grepl and their position. Once again for if the player is top ten or not we used an ifelse function which returns yes or no based on their rank. Lastly for salary range we converted the salaries to numbers and generated ranges. Finally to finish the columns were placed in the correct order.
 ```{r}
 Tournaments <- rbind(Memorial, PGA, Schwab)
 
@@ -77,9 +78,7 @@ Tournaments <-
 Tournaments <-
   Tournaments %>%
   mutate(Tournaments, MadeCut = (ifelse(Position == "CUT", "No", "Yes")))
-```
 
-```{r}
 #getting tournaments into their own columns for each player
 CharlesSchwabSpread <-
   Tournaments %>%
@@ -106,19 +105,13 @@ Tournaments <-
 Tournaments <-
   Tournaments %>%
   left_join(PGASpread, by = c(Player = "Player")) 
-```
 
-```{r}
 #Average, changing tournament scores to numeric type
 Tournaments[,16] <- as.integer(Tournaments[,16])
 Tournaments[,17] <- as.integer(Tournaments[,17])
 Tournaments[,18] <- as.integer(Tournaments[,18])
 Tournaments$avg <- round(rowMeans(Tournaments[,16:18], na.rm=TRUE), 1)
 
-```
-
-
-```{r}
 #rank column
 filterpattern <- "(T(\\d+)|(\\d+))"
 rankpattern = "(\\d+)"
@@ -130,15 +123,11 @@ Tournaments <-
 Tournaments <-
   Tournaments %>%
   mutate(top10 = ifelse(Tournaments$rank <= 10, "Yes", "No"))
-```
 
-```{r}
 #Salary Range
 Tournaments$Salary = as.numeric(Tournaments$Salary)
 Tournaments$SalaryRange <-paste((as.character(signif(Tournaments$Salary, 1))), "s",sep = "")
-```
 
-```{r}
 #order columns
 Tournaments <- 
   Tournaments[c(1,2,3,4,5,6,7,8,9,10,11,12,13,20,21,15,22,14,16,17,18,19)]
