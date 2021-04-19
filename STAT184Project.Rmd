@@ -9,7 +9,7 @@ output: html_notebook
 library(tidyverse)
 library(tidyr)
 ```
-### Read Data
+### Read in Data and Convert Stat Files to DataFrames
 ```{r}
 MemorialFantasy <-
   read_csv("Memorial_Fantasy.csv")
@@ -17,27 +17,21 @@ SchwabFantasy <-
   read_csv("Schwab_Fantasy.csv")
 PGAFantasy <-
   read_csv("PGA_Fantasy.csv")
-```
 
-```{r}
 MemorialStats <-
   read.table(file ="Memorial_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1)
 
 MemorialStats <- as.data.frame(matrix(MemorialStats$V1[MemorialStats$V1!=""], ncol = 9, byrow = TRUE))
 
 names(MemorialStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
-```
 
-```{r}
 PGAStats <-
   read.table(file ="PGA_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1, quote = "")
 
 PGAStats <- as.data.frame(matrix(PGAStats$V1[PGAStats$V1!=""], ncol = 9, byrow = TRUE))
 
 names(PGAStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
-```
 
-```{r}
 SchwabStats <-
   read.table(file ="Schwab_Stats.txt", header = FALSE,sep = "\n",dec = ".", skip = 1)
 
@@ -46,8 +40,7 @@ SchwabStats <- as.data.frame(matrix(SchwabStats$V1[SchwabStats$V1!=""], ncol = 9
 names(SchwabStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
 
 ```
-
-#### Join stats and fantasy tables and rbind all tournaments together
+#### Join Fantasy and Statistics to Create One Data Frame for Each of Three Tournaments
 ```{r}
 Memorial <-
   MemorialStats %>%
@@ -59,6 +52,9 @@ Schwab <-
   SchwabStats %>%
   left_join(SchwabFantasy, by = c(Player = "Name"))
 
+```
+#### Combine the Three Tournament Data Frames to Final Data Frame
+```{r}
 Tournaments <- rbind(Memorial, PGA, Schwab)
 
 Tournaments$Score <-
