@@ -1,15 +1,15 @@
 ---
-title: "STAT184 Project"
+title: "STAT 184 Project"
 author: "ProjectTeam6-3"
 date: "4/20/2021"
 output: html_notebook
 ---
-### Load Packages
+#### Load Packages
 ```{r}
 library(tidyverse)
 library(tidyr)
 ```
-### Read in Data and Convert Stat Files to DataFrames
+#### Read in Data and Convert Stat Files to Data Frames
 ```{r}
 MemorialFantasy <-
   read_csv("Memorial_Fantasy.csv")
@@ -40,7 +40,7 @@ SchwabStats <- as.data.frame(matrix(SchwabStats$V1[SchwabStats$V1!=""], ncol = 9
 names(SchwabStats) <- c("Position","Player", "Score","Putt","ARG", "App", "OTT", "T2G", "Total")
 
 ```
-### Join Fantasy and Statistics to Create One Data Frame for Each of Three Tournaments
+#### Join Fantasy and Statistics to Create One Data Frame for Each of Three Tournaments
 ```{r}
 Memorial <-
   MemorialStats %>%
@@ -53,16 +53,16 @@ Schwab <-
   left_join(SchwabFantasy, by = c(Player = "Name"))
 
 ```
-### Combine the Three Tournament Data Frames to Final Data Frame
-#### The statements in this chunk are generating the remaining columns that are missing in the combined data frame. The tournaments played is by using the count function on how many tournament a player appears in. The made cut column utilizes mutate with a ifelse function that responds with a simple yes or no. Next we filtered by tournament and used spread to find their scores for each tournament. This was repeated for each of the three tournaments. To find the average score for each player we first had to convert the scores to numbers. Next we ranked the players utilizing grepl and their position. Once again for if the player is top ten or not we used an ifelse function which returns yes or no based on their rank. Lastly for salary range we converted the salaries to numbers and generated ranges. Finally to finish the columns were placed in the correct order.
+#### Combine the Three Tournament Data Frames to Final Data Frame
+##### The first statement in this chunk in binding the rows of all three dataframes from each tournament to make one large data frame. Then, we replaced the E values in the Score column with zeros for consistency for our averages later. The tournaments played column was created by using the count function after grouping by Player's names on how many tournaments a player appears in. The made cut column utilizes mutate with a ifelse statment that responds with a simple yes or no depending on when the Player's Position is "CUT" or not. Next we filtered by tournament and used spread to find their scores for each tournament to be later combined into their own column in the Tournaments data frame. This was repeated for each of the three tournaments. To find the average score for each player we first had to convert the scores to numbers because they were originally string/character type. Next we found the rank of the players utilizing grepl with a pattern matching either a number or "T"number at their position, otherwise we knew they were unranked/cut. After we found matches to that pattern, we extracted the numbers from the data to become the rank and casted it as a numeric type. Once again for if the player is top ten or not we used an ifelse function which returns yes or no based on their rank using a simple conditional statement. Lastly for salary range we converted the salaries to a number type and generated ranges by transforming the numbers to one significant figure, then added an "s" to the end, making it a string type. Finally to finish, the columns were placed in the correct order because we orginally solved the columns in a different order.
 ```{r}
+#combining the 3 data frames
 Tournaments <- rbind(Memorial, PGA, Schwab)
 
+#changing the E's in the Score column to zeros
 Tournaments$Score <-
   ifelse(Tournaments$Score == "E", 0, Tournaments$Score)
-```
 
-```{r}
 #tournplayed column
 TournPlayed <-
   Tournaments %>%
@@ -72,8 +72,7 @@ TournPlayed <-
 Tournaments <-
   Tournaments %>%
   left_join(TournPlayed)
-```
-```{r}
+
 #MadeCut column
 Tournaments <-
   Tournaments %>%
