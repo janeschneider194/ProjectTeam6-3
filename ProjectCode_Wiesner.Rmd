@@ -59,11 +59,11 @@ Top10 <-
   mutate(rank = rank(Score, ties.method = "min")) %>%
   mutate(top10 = if_else(rank <= 10, 'Yes', 'No')) %>%
   mutate(MadeCut = if_else(Position =='CUT', 'No', 'Yes')) %>%
-  mutate(SalaryRange = ifelse(grepl("6", Salary), "6000s",
-                       ifelse(grepl("7", Salary), "7000s",
-                       ifelse(grepl("8", Salary), "8000s",
-                       ifelse(grepl("9" , Salary), "9000s",
-                       ifelse(grepl("10", Salary), "10000s", "11000s"))))))
+  mutate(SalaryRange = ifelse(grepl("^6", Salary), "6000s",
+                       ifelse(grepl("^7", Salary), "7000s",
+                       ifelse(grepl("^8", Salary), "8000s",
+                       ifelse(grepl("^9" , Salary), "9000s",
+                       ifelse(grepl("^10", Salary), "10000s", "11000s"))))))
 
 TournPlayed <- All %>%
   select((Player)) %>%
