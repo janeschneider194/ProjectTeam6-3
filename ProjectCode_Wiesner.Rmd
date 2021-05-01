@@ -92,7 +92,7 @@ AllResults %>%
   geom_point()+
   facet_wrap(~Tournament)
 ```
-#### How does a player's rank or score effects how much money they make per tournament?
+#### How does a player's rank or score affect how much money they make per tournament?
 The first graph explores the correlation between ranks and salary, where there seems to be a general negative correlation, meaning that the lower you are ranked, the lower your salary is going to be on average. In addition, we added the made cut category of yes or no as the color to signify where in the data the players are not longer eligible to compete for another tournament. Our second graph also shows how the average score (from all tournaments), correlates to being within a certain salary range. We found that those within the lowest salary range, 6000s, on aberage had the widest distrubtuon of scores with an abundance of them being high, which signifies a bad game in golf. As the salary ranges start getting high though, the mean score begins to decrease, which is telling that the average score correlates to a player's salary range.
 ```{r}
 AllResults %>%
