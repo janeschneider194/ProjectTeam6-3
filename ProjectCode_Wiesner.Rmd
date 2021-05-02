@@ -29,7 +29,6 @@ Schstats <-  as.data.frame(matrix(Schstat$Data, ncol=9, byrow=TRUE))
 ```
 
 #### Join Fantasy and Statistics to Create One Data Frame for Each of Three Tournaments
-
 ```{r}
 Memorial <- Memstats %>%
   inner_join(Memfan, by=c("V2"= "Name"))
@@ -43,8 +42,6 @@ Schwab <- Schstats %>%
 ```
 
 #### Combine the Three Tournament Data Frames to Final Data Frame
-Include paragraph explaining what the R statements are "doing" and what you are trying to accomplish with these statements.
-
 ```{r}
 All <- rbind(Memorial, Pga, Schwab)
 names(All)[1:9] <- c('Position', 'Player', 'Score', 
@@ -85,7 +82,7 @@ AllResults <- Results_Player %>%
 ```
 
 #### Is the Score or FPTS (Fantasy Points) more indicative of what players would make the cut?
-We formulated this graph to figure out whether the MadeCut yes or no category was indicated from trends in the scores or trends in the fantasy points data. We found by creating this graph that the point at which fantasy scores fall below around 40 points indicates a clearer cut off for who made the cut off and those who didn’t. This differs from the scores, where players who made the cut versus those who didn't do not have as much of a clear distinction looking at the range of scores. Our graph displays that our data’s fantasy points have a higher correlation to whether a player made the cut over their score per tournament.
+We formulated this graph to figure out whether the MadeCut yes or no category was indicated from trends in the scores or trends in the fantasy points data. We found by creating this graph that the point at which fantasy scores fall below around 40 points indicates a clearer cut off for who made the cut and those who didn’t. This differs from the scores, where players who made the cut versus those who didn't do not have as much of a clear distinction looking at the range of scores on the x-axis. We separated these graphs into facets by tournaments to see whether any tournaments had differing trends. Our graph displays that our data’s fantasy points have a higher correlation to whether a player made the cut over their score per tournament.
 ```{r}
 AllResults %>%
   ggplot(aes(x = Score,y = FPTS, color = MadeCut))+
@@ -93,7 +90,7 @@ AllResults %>%
   facet_wrap(~Tournament)
 ```
 #### How does a player's rank or score affect how much money they make per tournament?
-The first graph explores the correlation between ranks and salary, where there seems to be a general negative correlation, meaning that the lower you are ranked (highest number rank), the lower your salary is going to be on average. In addition, we added the made cut category of yes or no as the color to signify where in the data the players are no longer eligible to compete for another tournament. Our second graph also supports the answer to our question in that it shows how on average, the higher the average score (from all tournaments), the more likely that a player is within a higher salary range. We found that those within the lowest salary range, 6000s, on average had the widest distribution of scores with an abundance of them being high, which signifies a bad game in golf. As the salary ranges start getting high though, the mean score begins to show a decreasing trend, which is telling of the average score negatively correlates to a player's salary range.
+The first graph explores the correlation between ranks and salary, where there seems to be a general negative correlation, meaning that the lower you are ranked (highest number rank), the lower your salary is going to be on average. In addition, we added the made cut category of yes or no as the color to signify where in the data the players are no longer eligible to compete for another tournament. Our second graph also supports the answer to our question in that it shows how on average, the higher the average score (from all tournaments), the more likely that a player is within a lower salary range. We found that those within the lowest salary range, 6000s, on average had the widest distribution of scores with an abundance of them being high, which signifies a bad game in golf. As the salary ranges start getting high though, the mean score begins to show a decreasing trend, which is telling of the average score negatively correlates to a player's salary range.
 ```{r}
 #1st graph
 AllResults %>%
